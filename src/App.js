@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// custom components
+import AppBar from './containers/AppBar';
+import Landing from './containers/Landing';
+import Login from './containers/Login';
+import SignUp from './containers/SignUp';
+import HomeRoom from './containers/HomeRoom';
+import GradeRoom from './containers/GradeRoom';
+import SubjectRoom from './containers/SubjectRoom';
+
+class App extends Component {
+
+  render() {
+
+    const { auth } = this.props;
+
+    if(!auth.isLoaded) return null;
+
+    let routes = (
+      <Switch>
+          <Route path='/' exact component={ Landing }/>   
+          <Route path='/login' exact component={ Login }/>
+          <Route path='/signup' exact component={ SignUp }/>
+          <Redirect to="/"/>
+        </Switch>
+    )
+
+    if (auth.isLoaded && auth.uid) {
+      routes = (
+        <React.Fragment>
+          <AppBar/>
+          <Switch>
+            <Route path='/homeroom' exact component={ HomeRoom }/>
+            <Route path='/homeroom/:grade' exact component={ GradeRoom }/>
+            <Route path='/homeroom/:grade/:subject' exact component={ SubjectRoom }/>
+            <Redirect to="/homeroom"/>
+          </Switch>
+        </React.Fragment>
+      )
+    }
+      
+    return (
+      <div className="App">
+        {routes}
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(App);
