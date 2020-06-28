@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // material-ui
@@ -36,7 +35,7 @@ class HomeRoom extends Component {
     }
 
     render() {
-        const { auth, classes } = this.props;
+        const { classes } = this.props;
 
         const gradesTitles = Object.keys(grades)
         let gradeCards = [];
@@ -62,7 +61,7 @@ class HomeRoom extends Component {
                         </CardActionArea>
                         <CardActions>
                             <Button size="small" color="primary">
-                                Learn More
+                                See Subjects
                             </Button>
                         </CardActions>
                     </Card>

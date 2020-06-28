@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
 // material-ui
@@ -28,7 +27,7 @@ const styles = theme => ({
 class SubjectRoom extends Component {
 
     handleLessonClick = lessonId => {
-        console.log(lessonId)
+        this.props.history.push(this.props.history.location.pathname + "/" + lessonId);
     }
 
     render() {
@@ -56,7 +55,7 @@ class SubjectRoom extends Component {
                         </CardActionArea>
                         <CardActions>
                             <Button size="small" color="primary">
-                                Learn More
+                                Start Lesson
                             </Button>
                         </CardActions>
                     </Card>

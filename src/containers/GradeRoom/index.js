@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
 // material-ui
@@ -58,7 +57,7 @@ class GradeRoom extends Component {
                         </CardActionArea>
                         <CardActions>
                             <Button size="small" color="primary">
-                                Learn More
+                                See Lessons
                             </Button>
                         </CardActions>
                     </Card>

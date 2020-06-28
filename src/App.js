@@ -10,6 +10,7 @@ import SignUp from './containers/SignUp';
 import HomeRoom from './containers/HomeRoom';
 import GradeRoom from './containers/GradeRoom';
 import SubjectRoom from './containers/SubjectRoom';
+import Lesson from './containers/Lesson';
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
             <Route path='/homeroom' exact component={ HomeRoom }/>
             <Route path='/homeroom/:grade' exact component={ GradeRoom }/>
             <Route path='/homeroom/:grade/:subject' exact component={ SubjectRoom }/>
+            <Route path='/homeroom/:grade/:subject/:lessonId' exact component={ Lesson }/>
             <Redirect to="/homeroom"/>
           </Switch>
         </React.Fragment>
