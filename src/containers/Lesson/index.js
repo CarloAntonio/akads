@@ -1,7 +1,6 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 // material-ui
@@ -18,6 +17,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+
+// utils
+import { openProblemDrawer, closeProblemDrawer } from '../../store/actions/index';
 
 const sampleLesson = {
     title: "Draw Pictures to Add",
@@ -89,28 +91,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Lesson() {
-    // Example only
-    // const auth = useSelector(state => state.firebase.auth);
-    // console.log(auth);
-    // const dispatch = useDispatch()
-    // dispatch("import function from store")
-
+    const showProblemDrawer = useSelector(state => state.misc.showProblemDrawer);
+    const dispatch = useDispatch();
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-  
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
 
     return (
         <div className={classes.root}>
             <main
                 className={clsx(classes.content, {
-                [classes.contentShift]: open,
+                [classes.contentShift]: showProblemDrawer,
                 })}
             >
                 <div className={classes.drawerHeader} />
@@ -120,7 +109,7 @@ export default function Lesson() {
             <div style={{ marginBottom: "10rem"}}>
                 <Typography>{sampleLesson.script}</Typography>
             </div>
-            <Button size="medium" onClick={handleDrawerOpen}>
+            <Button size="medium" onClick={() => dispatch(openProblemDrawer())}>
                 Practice Problems
             </Button>
             </main>
@@ -128,12 +117,12 @@ export default function Lesson() {
                 className={classes.drawer}
                 variant="persistent"
                 anchor="right"
-                open={open}
+                open={showProblemDrawer}
                 classes={{
                     paper: classes.drawerPaper,
                 }}>
                 <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerClose}>
+                <IconButton onClick={() => dispatch(closeProblemDrawer())}>
                     <ChevronRightIcon />
                 </IconButton>
                 </div>
@@ -156,8 +145,6 @@ export default function Lesson() {
                 ))}
                 </List>
             </Drawer>
-            
-            
         </div>
     )
 }

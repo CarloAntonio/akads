@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from "react-redux";
+import clsx from 'clsx';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +14,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 // utils
 import { signOut } from '../../store/actions/index';
 
+const drawerWidth = 240;
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -23,10 +26,26 @@ const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: 1,
     },
+    appBar: {
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginRight: drawerWidth,
+    },
   }));
   
 export default function CustomAppBar() {
     const classes = useStyles();
+    const showProblemDrawer = useSelector(state => state.misc.showProblemDrawer)
+    console.log(showProblemDrawer)
     const dispatch = useDispatch();
     
     const auth = useSelector(state => state.firebase.auth);
@@ -34,7 +53,11 @@ export default function CustomAppBar() {
 
     return(
         <div>
-            <AppBar position="static">
+            <AppBar position="fixed"
+                className={clsx(classes.appBar, {
+                [classes.appBarShift]: showProblemDrawer,
+                })}
+            >
                 <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <MenuIcon />
