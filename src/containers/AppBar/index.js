@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import React from 'react'
+import { useSelector, useDispatch } from "react-redux";
 
 // material-ui
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import { withStyles } from '@material-ui/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -14,56 +13,38 @@ import MenuIcon from '@material-ui/icons/Menu';
 // utils
 import { signOut } from '../../store/actions/index';
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+      flexGrow: 1,
     },
-        menuButton: {
-        marginRight: 2,
-        // marginRight: theme.spacing(2),
+    menuButton: {
+      marginRight: theme.spacing(2),
     },
-        title: {
-        flexGrow: 1,
+    title: {
+      flexGrow: 1,
     },
-});
+  }));
   
-class CustomAppBar extends Component {
-    render() {
-        const { classes } = this.props;
+export default function CustomAppBar() {
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    
+    const auth = useSelector(state => state.firebase.auth);
+    
 
-        return(
-            <div>
-                <AppBar position="static">
-                    <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        Akads
-                    </Typography>
-                    <Button onClick={this.props.signOut} color="inherit">Logout</Button>
-                    </Toolbar>
-                </AppBar>
-            </div>
-        )
-    }
+    return(
+        <div>
+            <AppBar position="static">
+                <Toolbar>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                    Akads
+                </Typography>
+                <Button onClick={() => dispatch(signOut())} color="inherit">Logout</Button>
+                </Toolbar>
+            </AppBar>
+        </div>
+    )
 }
-
-AppBar.propTypes = {
-    classes: PropTypes.object,
-};
-  
-
-const mapStateToProps = state => {
-    return {
-      auth: state.firebase.auth,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-      signOut: () => dispatch(signOut()),
-    };
-  };
-
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(CustomAppBar));
