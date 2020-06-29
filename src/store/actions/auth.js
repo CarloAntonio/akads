@@ -1,5 +1,6 @@
 
 import * as actionTypes from "../actionTypes";
+import { closeProblemDrawer } from './misc'
 import { auth } from '../../utils/firebase-service'
 
 export const signUp = credentials => {
@@ -32,6 +33,7 @@ export const signOut = () => {
     return dispatch => {
         auth().signOut().then(() => {
             dispatch(signOutSuccess())
+            dispatch(closeProblemDrawer())
             // dispatch(clearStore())
             // dispatch(clearInstance())
         })

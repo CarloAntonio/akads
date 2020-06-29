@@ -45,11 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomAppBar() {
     const classes = useStyles();
     const showProblemDrawer = useSelector(state => state.misc.showProblemDrawer)
-    console.log(showProblemDrawer)
     const dispatch = useDispatch();
-    
-    const auth = useSelector(state => state.firebase.auth);
-    
 
     return(
         <div>

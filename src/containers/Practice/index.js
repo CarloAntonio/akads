@@ -1,4 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+// material-ui
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const samplePractice = {
     id: "123",
@@ -11,17 +18,22 @@ const samplePractice = {
     options: ["cat", "dog", "fish", "carabao"]
 }
 
-class Practice extends Component {
-    state = {
-        answer: samplePractice.options[0]
-    }
+export default function Practice () {
+    const [value, setValue] = React.useState('answer');
 
-    handleChange = (event) => {
-        this.setState({ answer: event.target.value });
+    const handleChange = (event) => {
+        setValue(event.target.value);
     };
 
-    render() {
-        const options = [];
+    // state = {
+    //     answer: samplePractice.options[0]
+    // }
+
+    // handleChange = (event) => {
+    //     this.setState({ answer: event.target.value });
+    // };
+
+    const options = [];
         samplePractice.options.forEach(option => {
             options.push(
                 <FormControlLabel value={option} control={<Radio />} label={option.charAt(0).toUpperCase() + option.slice(1)} />
@@ -36,14 +48,11 @@ class Practice extends Component {
                 <div>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Multiple Choice</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" value={this.state.answer} onChange={handleChange}>
+                    <RadioGroup aria-label="question" name="question" value={value} onChange={handleChange}>
                         {options}
                     </RadioGroup>
                 </FormControl>
                 </div>
             </div>
         )
-    }
 }
-
-export default Practice;

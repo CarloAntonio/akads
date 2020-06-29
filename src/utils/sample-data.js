@@ -131,6 +131,26 @@ export const practice = [
         answer: "a",
         options: ["cat", "dog", "fish", "carabao"]
     },
+    {
+        id: "123",
+        lesson: "1234",
+        grade: "first",
+        subject: "math",
+        type: "mc",
+        question: "which of these is the correct answer",
+        answer: "a",
+        options: ["cat", "dog", "fish", "carabao"]
+    },
+    {
+        id: "123",
+        lesson: "1234",
+        grade: "first",
+        subject: "math",
+        type: "mc",
+        question: "which of these is the correct answer",
+        answer: "a",
+        options: ["cat", "dog", "fish", "carabao"]
+    },
 ]
 
 export default grades;
