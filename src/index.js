@@ -8,6 +8,9 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 // material ui
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
+import lime from '@material-ui/core/colors/lime';
 
 // custom components
 import App from './App';
@@ -22,13 +25,27 @@ const rrfProps = {
   dispatch: store.dispatch
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: lime[500],
+      white: '#FFF'
+    },
+    secondary: {
+      main: green[500],
+    },
+  },
+});
+
 const app = (
   <React.StrictMode>
     <CssBaseline />
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <BrowserRouter>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </BrowserRouter>
       </ReactReduxFirebaseProvider>
     </Provider>

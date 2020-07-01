@@ -61,7 +61,7 @@ class Login extends Component {
                             Start Learning Now!
                         </div>
                     </Grid>
-                    <Grid item xs={6} justify="center" alignItems="center">
+                    <Grid item xs={6}>
                         <Paper>
                             <div style={{ textAlign: "center" , padding: "5rem 0rem"}}>
                                 <form noValidate autoComplete="off" style={{ paddingBottom: "6rem"}}>
