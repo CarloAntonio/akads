@@ -8,13 +8,22 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-// test
+// assets
 import './index.css'
+import image1 from '../../assets/images/slider-icon.png';
+import bg from '../../assets/images/banner-bg.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        color: theme.palette.common.white,
+        flexGrow: 1,
+        padding: "2rem 16rem 8rem",
+        background: `url(${bg}) no-repeat center center fixed`,
+        backgroundSize: "cover",
     },
+    img: {
+        width: '100%',
+        height: 'auto',
+    }
 }));
 
 function Landing(props) {
@@ -30,38 +39,36 @@ function Landing(props) {
     }
 
     return (
-        <React.Fragment>
-            <header className="header-area header-sticky">
-                <Grid container spacing={3} justify="center">
-                    <Grid item xs={10}>
-                        <nav className="main-nav">
-                            <Typography variant="h6" className="logo">Akads</Typography>
-                            <ul className="nav">
-                                <li className="scroll-to-section"><Button onClick={null} disabled={true} className={classes.root}>Donate</Button></li>
-                                <li className="scroll-to-section"><Button onClick={handleLoginRedirect} disabled={true} className={classes.root}>Login</Button></li>
-                                <li className="scroll-to-section"><Button onClick={handleSignUpRedirect} disabled={true} className={classes.root}>Sign Up</Button></li>
-                            </ul>
-                        </nav>
+        <div className={classes.root}>
+            <Grid container spacing={3} justify="space-between" alignItems="center">
+                <Grid container item justify="space-between">
+                    <Grid item>
+                        <Typography color="textPrimary" variant="h4">Akads</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button onClick={null} disabled={true}>Donate</Button>
+                        <Button onClick={handleLoginRedirect}>Login</Button>
+                        <Button onClick={handleSignUpRedirect}>Sign Up</Button>
                     </Grid>
                 </Grid>
-            </header>
-            <div className="welcome-area" id="welcome">
-                <div className="header-text">
-                    <Grid container spacing={3} justify="center">
-                        <Grid item xs={10}>
-                            <div className="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                                <h1>Akads is a learning platform made <strong>just for YOU</strong></h1>
-                                <p>We'll have the application up and running, but until then, feel free to join our mailing list to get updates!</p>
-                                <a href="#about" className="main-button-slider">Find Out More</a>
-                            </div>
-                            <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                                {/* <img src="assets/images/slider-icon.png" class="rounded img-fluid d-block mx-auto" alt="First Vector Graphic"/> */}
-                            </div>
-                        </Grid>
+                <Grid container item spacing={6} alignItems="center">
+                    <Grid item xs={6}>
+                        <div>
+                            <Typography color="textPrimary" variant="h4">Akads is a learning platform made <strong>just for YOU</strong></Typography>
+                            <Typography color="textSecondary" variant="subtitle1">We'll have the application up and running, but until then, feel free to join our mailing list to get updates!</Typography>
+                            <Button variant="contained" color="primary" href="#about">
+                                Find Out More
+                            </Button>
+                        </div>
                     </Grid>
-                </div>
-            </div>
-        </React.Fragment>
+                    <Grid item xs={6}>
+                        <div>
+                            <img src={image1} className={classes.img} alt="First Vector Graphic"/>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </div>
     );
 }
 

@@ -28,12 +28,18 @@ const rrfProps = {
 const theme = createMuiTheme({
   palette: {
     primary: {
+      light: "#7986cb",
       main: lime[500],
-      white: '#FFF'
     },
     secondary: {
       main: green[500],
     },
+    warning: {
+      main: "#FF0000"
+    },
+    text: {
+      primary: '#FFF',
+    }
   },
 });
 
