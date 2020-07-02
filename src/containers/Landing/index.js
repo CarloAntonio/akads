@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 // assets
-import './index.css'
 import image1 from '../../assets/images/slider-icon.png';
 import bg from '../../assets/images/banner-bg.png';
 
@@ -46,7 +45,7 @@ function Landing(props) {
                         <Typography color="textPrimary" variant="h4">Akads</Typography>
                     </Grid>
                     <Grid item>
-                        <Button onClick={null} disabled={true}>Donate</Button>
+                        <Button onClick={null} disabled={true} >Donate</Button>
                         <Button onClick={handleLoginRedirect}>Login</Button>
                         <Button onClick={handleSignUpRedirect}>Sign Up</Button>
                     </Grid>
@@ -55,7 +54,9 @@ function Landing(props) {
                     <Grid item xs={6}>
                         <div>
                             <Typography color="textPrimary" variant="h4">Akads is a learning platform made <strong>just for YOU</strong></Typography>
+                            <br/>
                             <Typography color="textSecondary" variant="subtitle1">We'll have the application up and running, but until then, feel free to join our mailing list to get updates!</Typography>
+                            <br/>
                             <Button variant="contained" color="primary" href="#about">
                                 Find Out More
                             </Button>
