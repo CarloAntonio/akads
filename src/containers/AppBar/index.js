@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import clsx from 'clsx';
+import { withRouter } from "react-router-dom";
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 
 // utils
 import { signOut } from '../../store/actions/index';
@@ -42,11 +43,15 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-export default function CustomAppBar() {
+function CustomAppBar(props) {
     const classes = useStyles();
     const showProblemDrawer = useSelector(state => state.misc.showProblemDrawer)
     const dispatch = useDispatch();
 
+    const handleHomeRedirect = () => {
+        props.history.push('/');
+    }
+    
     return(
         <div>
             <AppBar position="fixed"
@@ -56,7 +61,7 @@ export default function CustomAppBar() {
             >
                 <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <MenuIcon />
+                    <HomeIcon onClick={handleHomeRedirect} />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
                     Akads
@@ -67,3 +72,5 @@ export default function CustomAppBar() {
         </div>
     )
 }
+
+export default withRouter(CustomAppBar);
