@@ -9,8 +9,6 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 // material ui
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import lime from '@material-ui/core/colors/lime';
 
 // custom components
 import App from './App';
@@ -27,19 +25,21 @@ const rrfProps = {
 
 const theme = createMuiTheme({
   palette: {
-    // primary: {
-    //   light: "#7986cb",
-    //   main: lime[500],
-    // },
-    // secondary: {
-    //   main: green[500],
-    // },
-    // warning: {
-    //   main: "#FF0000"
-    // },
-    // text: {
-    //   primary: '#FFF',
-    // }
+    primary: {
+      light: "#60d6ff",
+      main: "#00A4D3",
+      dark: "#0076a2",
+      contrastText: "#fff"
+    },
+    secondary: {
+      light: "#ffff85",
+      main: "#FFD353",
+      dark: "#c8a31d",
+      contrastText: "#000"
+    },
+    warning: {
+      main: "#FF0000"
+    },
   },
 });
 

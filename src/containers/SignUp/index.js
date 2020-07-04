@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from "react-redux";
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // material-ui
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -10,68 +11,87 @@ import Button from '@material-ui/core/Button';
 import Snackbar from "@material-ui/core/Snackbar";
 import Fade from "@material-ui/core/Fade";
 
+// custom components
+import AppBarSignedOut from '../AppBarSignedOut';
+
 // utils
 import { signUp } from '../../store/actions';
-  
-class SignUp extends Component {
-    state = {
-        credentials: {
-            email: '',
-            password: '',
-            confirmPassword: '',
-        },
-        showSnackbar: false,
-        snackbarMessage: '',
-    };
 
-    handleChange = event => {
-        const {id, value} = event.target;
-        this.setState({
-          credentials: {
-            ...this.state.credentials,
-            [id]: value
-          }
-        })
+// assets
+import image1 from '../../assets/images/slider-icon.png';
+import bg from '../../assets/images/banner-bg.png';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        padding: "2rem 16rem 8rem",
+        background: `url(${bg}) no-repeat center center fixed`,
+        backgroundSize: "cover",
+        height: "100vh"
+    },
+    img: {
+        width: '100%',
+        height: 'auto',
+    }
+}));
+  
+export default function SignUp (props) {
+
+    const classes = useStyles();
+    const auth = useSelector(state => state.firebase.auth);
+    const dispatch = useDispatch();
+
+    // state delaration
+    const [showSnackbar, shouldShowSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword ] = useState("");
+    const [confirmPassword, setConfirmPassword ] = useState("");
+
+    const handleSnackbarClose = () => {
+        setSnackbarMessage("");
+        shouldShowSnackbar(false);
     }
 
-    handleSignUp = async event => {
+    const handleSignUp = async event => {
         event.preventDefault();
-        const { credentials } = this.state;
+        const credentials = { email, password, confirmPassword };
 
         if(credentials.password !== credentials.confirmPassword) {
-            this.setState({ snackbarMessage: "Password Mismatch", showSnackbar: true });
+            setSnackbarMessage("Password Mismatch");
+            shouldShowSnackbar(true);
         } else {
-            const result = await this.props.signUp(credentials);
+            const result = await dispatch(signUp(credentials));
             if(result && result.code !== 'ok'){
-                this.setState({ snackbarMessage: result.message, showSnackbar: true });
-            } 
+                setSnackbarMessage(result.message);
+                shouldShowSnackbar(true);
+            } else {
+                props.history.push('/')
+            }
         }
     }
 
-    handleSnackbarClose = () => {
-        this.setState({ snackbarMessage: "", showSnackbar: false })
-    }
+    if (auth.isLoaded && auth.uid) return <Redirect to="/"/>
 
-    render() {
-        const { auth } = this.props;
-        if (auth.isLoaded && auth.uid) return <Redirect to="/"/>
-
-        return(
-            <div style={{ padding: "12rem 0rem", maxWidth: "60rem", margin: "auto" }}>
-                <Grid container spacing={3} justify="center" alignItems="center">
-                    <Grid item xs={6} >
-                        <div style={{ textAlign: "center" }}>
-                            Start Learning Now!
+    return(
+        <div className={classes.root}>
+            <Grid container spacing={3} justify="space-between" alignItems="center">
+                <AppBarSignedOut/>
+                <Grid container item spacing={6} alignItems="center">
+                    <Grid item xs={6}>
+                        <div>
+                            <img src={image1} className={classes.img} alt="First Vector Graphic"/>
                         </div>
                     </Grid>
-                    <Grid item xs={6} justify="center" alignItems="center">
+                    <Grid item xs={6}>
                         <Paper>
                             <div style={{ textAlign: "center" , padding: "5rem 0rem"}}>
                                 <form noValidate autoComplete="off" style={{ paddingBottom: "6rem"}}>
                                     <Grid item xs={12}>
                                         <TextField 
                                             style={{ minWidth: "12rem", width: "75%", maxWidth: "24rem"}}
-                                            onChange={this.handleChange}
+                                            onChange={event => setEmail(event.target.value)}
+                                            value={email}
                                             type="email"
                                             id="email" 
                                             label="Email" />
@@ -79,7 +99,8 @@ class SignUp extends Component {
                                     <Grid item xs={12}>
                                         <TextField 
                                             style={{ minWidth: "12rem", width: "75%", maxWidth: "24rem"}}
-                                            onChange={this.handleChange}
+                                            onChange={event => setPassword(event.target.value)}
+                                            value={password}
                                             type="password"
                                             id="password"
                                             label="Password" />
@@ -87,46 +108,32 @@ class SignUp extends Component {
                                     <Grid item xs={12}>
                                         <TextField 
                                             style={{ minWidth: "12rem", width: "75%", maxWidth: "24rem"}}
-                                            onChange={this.handleChange}
+                                            onChange={event => setConfirmPassword(event.target.value)}
+                                            value={confirmPassword}
                                             type="password"
                                             id="confirmPassword"
                                             label="confirmPassword" />
                                     </Grid>
                                 </form>
                                 <Button 
-                                    onClick={this.handleSignUp}
+                                    onClick={handleSignUp}
                                     variant="contained" 
                                     color="primary">
-                                    Create Account
+                                    Login
                                 </Button>
                             </div>
                         </Paper>
                     </Grid>
                 </Grid>
-                
-                <Snackbar
-                    open={this.state.showSnackbar}
-                    autoHideDuration={6000}
-                    onClose={this.handleSnackbarClose}
-                    TransitionComponent={Fade}
-                    ContentProps={{ "aria-describedby": "message-id" }}
-                    style={{ color: "white" }}
-                    message={<span id="message-id">{this.state.snackbarMessage}</span>}/>
-            </div>
-        )
-    }
+            </Grid>
+            <Snackbar
+                open={showSnackbar}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                TransitionComponent={Fade}
+                ContentProps={{ "aria-describedby": "message-id" }}
+                style={{ color: "white" }}
+                message={<span id="message-id">{snackbarMessage}</span>}/>
+        </div>
+    )
 }
-
-const mapStateToProps = state => {
-    return {
-      auth: state.firebase.auth,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-      signUp: (creds) => dispatch(signUp(creds)),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

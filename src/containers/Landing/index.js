@@ -1,12 +1,15 @@
 // libraries
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+
+// custom components
+import AppBarSignedOut from '../AppBarSignedOut';
+import WhiteText from '../../components/text/WhiteText';
+import SeconaryText from '../../components/text/SecondaryText';
 
 // assets
 import image1 from '../../assets/images/slider-icon.png';
@@ -18,46 +21,30 @@ const useStyles = makeStyles((theme) => ({
         padding: "2rem 16rem 8rem",
         background: `url(${bg}) no-repeat center center fixed`,
         backgroundSize: "cover",
+        height: "100vh"
     },
     img: {
         width: '100%',
         height: 'auto',
-    }
+    },
 }));
 
-function Landing(props) {
+export default function Landing() {
 
     const classes = useStyles();
-
-    const handleLoginRedirect = () => {
-        props.history.push('/login')
-    }
-
-    const handleSignUpRedirect = () => {
-        props.history.push('/signup')
-    }
 
     return (
         <div className={classes.root}>
             <Grid container spacing={3} justify="space-between" alignItems="center">
-                <Grid container item justify="space-between">
-                    <Grid item>
-                        <Typography color="textPrimary" variant="h4">Akads</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Button onClick={null} disabled={true} >Donate</Button>
-                        <Button onClick={handleLoginRedirect}>Login</Button>
-                        <Button onClick={handleSignUpRedirect}>Sign Up</Button>
-                    </Grid>
-                </Grid>
+                <AppBarSignedOut/>
                 <Grid container item spacing={6} alignItems="center">
                     <Grid item xs={6}>
                         <div>
-                            <Typography color="textPrimary" variant="h4">Akads is a learning platform made <strong>just for YOU</strong></Typography>
+                            <WhiteText variant="h4">Akads is a learning platform made <strong>just for YOU</strong></WhiteText>
                             <br/>
-                            <Typography color="textSecondary" variant="subtitle1">We'll have the application up and running, but until then, feel free to join our mailing list to get updates!</Typography>
+                            <SeconaryText variant="subtitle1">We'll have the application up and running, but until then, feel free to join our mailing list to get updates!</SeconaryText>
                             <br/>
-                            <Button variant="contained" color="primary" href="#about">
+                            <Button variant="contained" color="secondary" href="#about">
                                 Find Out More
                             </Button>
                         </div>
@@ -72,5 +59,3 @@ function Landing(props) {
         </div>
     );
 }
-
-export default withRouter(Landing);
