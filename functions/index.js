@@ -22,5 +22,17 @@ server.use('/user', userRoutes);
 //define google cloud function name
 exports.api = functions.https.onRequest(server);
 
+// triggers
+exports.newUserSignup = functions.auth.user().onCreate(user => {
+    return admin.firestore().collection('users').doc(user.uid).set({
+        email: user.email
+    })
+})
+
+exports.userDeleted = functions.auth.user().onDelete(user => {
+    const doc = admin.firestore().collection('users').doc(user.uid);
+    return doc.delete();
+})
+
 // exports
-exports.auth = require('./auth');
+// exports.auth = require('./auth');
