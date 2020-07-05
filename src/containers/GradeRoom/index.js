@@ -12,8 +12,48 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-// sample data
-import grades from '../../utils/sample-data';
+// fake data
+const grades = {
+    first: {
+        subjects: {
+            math: {
+                title: "First Grade Math",
+            },
+            reading: {
+                title: "First Grade Reading",
+            },
+            science: {
+                title: "First Grade Science",
+            }
+        }
+    },
+    second: {
+        subjects: {
+            math: {
+                title: "Second Grade Math",
+            },
+            reading: {
+                title: "Second Grade Reading",
+            },
+            science: {
+                title: "Second Grade Science",
+            }
+        }
+    },
+    third: {
+        subjects: {
+            math: {
+                title: "Third Grade Math",
+            },
+            reading: {
+                title: "Third Grade Reading",
+            },
+            science: {
+                title: "Third Grade Science",
+            }
+        }
+    }
+}
 
 const styles = theme => ({
     root: {

@@ -102,6 +102,10 @@ export default function Lesson() {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const [showPractice, shouldShowPractice] = React.useState(true);
+    const [showLessonBoard, shouldShowLessonBoard] = React.useState(true);
+    const [practiceId, setPracticeId] = React.useState(null);
+
     useEffect(() => {
         return function cleanup() {
           dispatch(closeProblemDrawer())
@@ -110,9 +114,35 @@ export default function Lesson() {
 
     const practiceList = samplePractices.map((practice, index) => (
         <ListItem button key={practice.id}>
-            <ListItemText primary={practice.name} />
+            <ListItemText onClick={() => handlePracticeProblemClick(practice.id)} primary={practice.name} />
         </ListItem>
     ))
+
+    let lessonBoard = null;
+    if(showLessonBoard){
+        lessonBoard = (
+            <Grid item xs={showPractice ? 7 : 12}>
+                <LessonBoard shouldShowLessonBoard={shouldShowLessonBoard}/>
+            </Grid>
+        )
+    }
+
+    let practice = null;
+    if(showPractice){
+        practice = (
+            <Grid item xs={showLessonBoard ? 5 : 12}>
+                <Practice 
+                    shouldShowPractice={shouldShowPractice}
+                    shouldShowLessonBoard={shouldShowLessonBoard}
+                    showLessonBoard={showLessonBoard}/>
+            </Grid>
+        );
+    }
+
+    const handlePracticeProblemClick = (practiceId) => {
+        setPracticeId(practiceId);
+        shouldShowPractice(true);
+    }
 
     return (
         <div className={classes.root}>
@@ -123,12 +153,8 @@ export default function Lesson() {
             >
                 <div className={classes.drawerHeader} />
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <LessonBoard/>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Practice/>
-                    </Grid>
+                    {lessonBoard}
+                    {practice}
                 </Grid>
             </main>
             <Drawer

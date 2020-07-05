@@ -19,7 +19,7 @@ const sampleLesson = {
     script: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue tincidunt pretium. Morbi ut pharetra mi. Vivamus rutrum, elit a dignissim laoreet, eros turpis dignissim velit, sit amet ullamcorper mi nunc id orci. Donec ut mauris tempor dui bibendum maximus. Praesent et rhoncus ante. Ut viverra consequat finibus. Aliquam fermentum lectus ac commodo aliquet. Etiam vitae elementum velit. Morbi ultrices semper blandit. Aliquam placerat dui in dolor convallis, vel vulputate ligula fringilla. In hac habitasse platea dictumst. Ut consequat mauris enim, sit amet convallis nulla bibendum vel. Cras ut varius eros. Suspendisse sit amet purus justo."
 }
 
-export default function LessonBoard() {
+export default function LessonBoard(props) {
     const dispatch = useDispatch();
 
     return (
@@ -32,6 +32,9 @@ export default function LessonBoard() {
             </div>
             <Button size="medium" onClick={() => dispatch(openProblemDrawer())}>
                 Practice Problems
+            </Button>
+            <Button size="medium" onClick={() => props.shouldShowLessonBoard(false)}>
+                Hide Lesson Board
             </Button>
         </React.Fragment>
     )
