@@ -14,11 +14,13 @@ exports.getUserData = async (req, res, next) => {
         if (doc.exists) {
             const user = doc.data();
             console.log(user)
-            return res.status(200).json(user);;
+            return res.status(200).json(user);
         }
     } catch(err){
         console.log("Error adding user");
         if (!err.statusCode) err.statusCode = 500;
-        next(err);
+        return next(err);
     }
+
+    return null;
 }
