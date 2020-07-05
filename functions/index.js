@@ -21,3 +21,6 @@ server.use('/user', userRoutes);
 
 //define google cloud function name
 exports.api = functions.https.onRequest(server);
+
+// exports
+exports.auth = require('./auth');
