@@ -4,8 +4,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
-
-// const cors = require('cors');
+const cors = require('cors')({origin: true});
 
 //initialize firebase inorder to access its services
 admin.initializeApp();
@@ -15,19 +14,13 @@ const userRoutes = require('./routes/user');
 
 // initialize express server
 const server = express();
-
-// Automatically allow cross-origin requests
-// server.use(cors({ origin: true }));
-server.use(bodyParser.json());
-
-// authentication middlewares
-// TODO:
+server.use(cors, bodyParser.json());
 
 // cors
 // server.use((req, res, next) => {
-//     res.set('Access-Control-Allow-Origin', '*');
-//     res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-//     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 //     next();
 // });
 
