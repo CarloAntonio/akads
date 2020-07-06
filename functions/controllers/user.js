@@ -4,9 +4,9 @@ const admin = require('firebase-admin');
 const cors = require("cors")({ origin: true });
 const db = admin.firestore();
 
-exports.getUserData = async (req, res, next) => {
+exports.getUserData = (req, res, next) => {
     // Enable CORS using the `cors` express middleware.
-    return cors(req, res, () => {
+    return cors(req, res, async () => {
         // extract body data
         const uid = req.body.uid;
         console.log(uid)
