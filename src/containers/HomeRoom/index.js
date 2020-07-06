@@ -80,7 +80,6 @@ export default function HomeRoom(props) {
 
     // react state
     const [user, setUser] = React.useState(null);
-    console.log(user)
 
     // "lifecycle", adding array at end ensure that function only runs once
     useEffect(() => {
@@ -111,7 +110,7 @@ export default function HomeRoom(props) {
     }, [dispatch]);
 
     const handleGradeClick = gradeTitle => {
-        props.history.push(this.props.history.location.pathname + "/" + gradeTitle);
+        props.history.push(props.history.location.pathname + "/" + gradeTitle);
     }
 
     const gradesTitles = Object.keys(grades)
@@ -154,16 +153,4 @@ export default function HomeRoom(props) {
         </header>
     );
 }
-
-// HomeRoom.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
-
-// const mapStateToProps = state => {
-//   return {
-//     auth: state.firebase.auth,
-//   };
-// };
-
-// export default withStyles(styles)(connect(mapStateToProps)(HomeRoom));
     
