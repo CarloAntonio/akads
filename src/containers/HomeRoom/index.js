@@ -17,6 +17,9 @@ import Typography from '@material-ui/core/Typography';
 // styles
 import './index.css';
 
+// utils
+import { envEndpoint } from '../../utils/firebase-service';
+
 // fake data
 const grades = {
     first: {
@@ -83,7 +86,7 @@ export default function HomeRoom(props) {
     useEffect(() => {
         async function fetchData(){
             try{
-                const response = await fetch('http://localhost:5001/akads-4dd8d/us-central1/api/user/getUser', {
+                const response = await fetch(`${envEndpoint}user/getUser`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
