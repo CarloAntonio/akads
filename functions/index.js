@@ -12,9 +12,17 @@ admin.initializeApp();
 // import routes
 const userRoutes = require('./routes/user');
 
-//initialize express server
+// initialize express server
 const server = express();
 server.use(cors(), bodyParser.json());
+
+// cors
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 
 // routes
 server.use('/user', userRoutes);
