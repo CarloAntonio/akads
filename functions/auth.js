@@ -5,7 +5,7 @@ const admin = require('firebase-admin');
 
 // triggers
 exports.newUserSignup = functions.auth.user().onCreate(user => {
-    return admin.firestore().collection('users').doc(user.uid).set({
+    return admin.firestore().collection('usersMin').doc(user.uid).set({
         email: user.email
     })
 })

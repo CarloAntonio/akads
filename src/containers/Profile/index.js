@@ -11,7 +11,12 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+
+
+// custom containers
+import NewPost from './NewPost';
+import PostCard from './PostCard';
+import FLAvatar from './FLAvatar';
 
 // assets
 import image1 from '../../assets/images/profile.jpg';
@@ -149,226 +154,25 @@ export default function Profile(){
                   <Grid container item xs={12} justify="center">
                     <Typography align="center">Friends</Typography>
                   </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Darryl</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Jeffff</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Kristine</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Joanna</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Paolo</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Nyssa</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Tuyen</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Sheila</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Dr Diggs</Typography>
-                  </Grid>
-                  <Grid container item xs={3} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.small} />
-                    <Typography align="center">Anaaa</Typography>
-                  </Grid>
+                  <FLAvatar/>
+                  <FLAvatar/>
                 </Grid>
               </Paper>
             </Grid>
 
             {/* Right Hand Side */}
             <Grid item xs={7}>
-              <Paper className={classes.paper}> 
-                <Grid container item xs={12} spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="filled-multiline-static"
-                      label="What's on your mind?"
-                      multiline
-                      // variant="filled"
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12} align="right">
-                    <Button variant="contained" color="secondary">
-                      Post
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Paper>
+              {/* New Post Container */}
+              <NewPost/>
+              
               <Paper className={classes.paper}> 
                 <Grid item xs={12}>
                   <Typography>Post</Typography>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" src={image1} className={classes.avatar}/>
-                      }
-                      title="Shrimp and Chorizo Paella Shrimp and Chorizo Paella Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
-                    />
-                  </Card>
+                  <PostCard/>
+                  <PostCard/>
+                  <PostCard/>
+                  <PostCard/>
+                  <PostCard/>
                 </Grid>
               </Paper>
             </Grid>
