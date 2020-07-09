@@ -1,7 +1,6 @@
 
 // libraries
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,9 +15,6 @@ import Typography from '@material-ui/core/Typography';
 
 // styles
 import './index.css';
-
-// utils
-import { envEndpoint } from '../../utils/firebase-service';
 
 // fake data
 const grades = {
@@ -67,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
     },
-        media: {
+    media: {
         height: 140,
     },
 }));
@@ -75,39 +71,6 @@ const useStyles = makeStyles((theme) => ({
 export default function HomeRoom(props) {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const auth = useSelector(state => state.firebase.auth);
-
-    // react state
-    const [user, setUser] = React.useState(null);
-
-    // "lifecycle", adding array at end ensure that function only runs once
-    useEffect(() => {
-        async function fetchData(){
-            try{
-                const response = await fetch(`${envEndpoint}user/getUser`, {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        uid: auth.uid,
-                    }),
-                });
-    
-                // handle when request completed successfully
-                if(response.ok && response.status == 200) { 
-                    // pull user data
-                    const result = await response.json();
-                    setUser(result);
-                }
-            } catch(err){
-                console.log(err);
-            }
-            
-        }
-        fetchData();
-    }, [dispatch]);
 
     const handleGradeClick = gradeTitle => {
         props.history.push(props.history.location.pathname + "/" + gradeTitle);
