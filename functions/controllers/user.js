@@ -9,7 +9,7 @@ exports.getUserData = async (req, res, next) => {
 
     // pull up data from db
     try {
-        const doc = await db.collection('users').doc(uid).get();
+        const doc = await db.collection('usersMax').doc(uid).get();
         if (doc.exists) {
             const user = doc.data();
             return res.status(200).json(user);
