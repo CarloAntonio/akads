@@ -20,41 +20,39 @@ import { envEndpoint } from './utils/firebase-service';
 import { setUser } from './store/actions/index';
 
 export default function App() {
-  
-  // react state
-  // const [user, setUser] = React.useState(null);
 
   // redux state and dispatch
   const auth = useSelector(state => state.firebase.auth);
-  const user = useSelector(state => state.user.self);
   const dispatch = useDispatch();
 
   // effect only activates if [auth.uid] changes
   useEffect(() => {
-      async function fetchData(){
+    async function fetchData(){
+      if(auth.isLoaded && !auth.isEmpty && auth.uid){
         try{
-            const response = await fetch(`${envEndpoint}user/getUser`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    uid: auth.uid,
-                }),
-            });
+          const response = await fetch(`${envEndpoint}user/getUser`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                  uid: auth.uid,
+              }),
+          });
 
-            // handle when request completed successfully
-            if(response.ok && response.status === 200) { 
-                // pull user data
-                const result = await response.json();
-                dispatch(setUser(result));
-            }
+          // handle when request completed successfully
+          if(response.ok && response.status === 200) { 
+              // pull user data
+              const result = await response.json();
+              dispatch(setUser(result));
+          }
         } catch(err){
-            console.log(err);
+          console.log(err);
         }
       }
-      fetchData();
-  }, [auth.uid]);
+    }
+    fetchData();
+  }, [auth.uid, auth.isLoaded, auth.isEmpty, dispatch]);
 
   // return componentless 
   // TODO: turn into a loading page

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { cloneDeep } from 'lodash'
 
@@ -52,7 +52,7 @@ export default function EditProfileDialog(props){
         if(interest) updatedUser.interest = interest;
         if(quote) updatedUser.quote = quote;
         updateUser(updatedUser);
-        props.handleClose()
+        props.handleCloseEditProfileDialog()
     }
 
     // reach out to the db
@@ -73,7 +73,6 @@ export default function EditProfileDialog(props){
             if(response.ok && response.status === 200) { 
                 // pull user data
                 const result = await response.json();
-                console.log(result)
                 dispatch(setUser(result));
             }
         } catch(err){
@@ -105,7 +104,7 @@ export default function EditProfileDialog(props){
     
     return (
         <div>
-            <Dialog open={props.openEditProfileDialog} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={props.openEditProfileDialog} onClose={props.handleCloseEditProfileDialog} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Edit Summary</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -174,7 +173,7 @@ export default function EditProfileDialog(props){
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={props.handleClose} color="primary">
+                    <Button onClick={props.handleCloseEditProfileDialog} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={handleUpdateSummary} color="primary">

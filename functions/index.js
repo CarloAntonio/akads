@@ -20,12 +20,12 @@ server.use(cors, bodyParser.json());
 server.use('/user', userRoutes);
 
 // error route
-server.use((error, req, res, next) => {
-    const status = error.statusCode || 500;
-    const message = error.message;
-    const data = error.data;
-    res.status(status).json({ message: message, data: data });
-});
+// server.use((error, req, res, next) => {
+//     const status = error.statusCode || 500;
+//     const message = error.message;
+//     const data = error.data;
+//     res.status(status).json({ message: message, data: data });
+// });
 
 //define google cloud function name
 exports.api = functions.https.onRequest(server);

@@ -10,9 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import HomeIcon from '@material-ui/icons/Home';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -51,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginRight: drawerWidth,
     },
-  }));
+}));
   
 function CustomAppBar(props) {
     const classes = useStyles();

@@ -5,14 +5,18 @@ import { useSelector } from 'react-redux';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
+import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 // custom components
 import EditProfileDialog from '../../components/popups/EditProfileDialog';
+import PicUploadDialog from '../../components/popups/PicUploadDialog';
 
 // assets
 import image1 from '../../assets/images/profile.jpg';
@@ -34,114 +38,134 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const sampleData = {
-    name: {
-        title: "Name: ",
-        value: "Carlo Bilbao",
-    },
-    memberSince: {
-        title: "Member Since: ",
-        value: "April 26, 2020",
-    },
-    liveIn: {
-        title: "Lives In: ",
-        value: "Antioch, CA"
-    },
-    hometown: {
-        title: "Hometown: ",
-        value: "Concord, CA",
-        hidden: false,
-    },
-    workIn: {
-        title: "Works In: ",
-        value: "Biotech",
-        hidden: false
-    },
-    interest: {
-        title: "Interest: ",
-        value: "Programming, Sciences, Working Out, Doggos",
-        hidden: false
-    },
-    quote: {
-        title: "Quote: ",
-        value: "Real Gs move in silence, like lasanga",
-        hidden: false,
-    },
-}
-
 export default function BasicInfo(){
     const classes = useStyles();
 
     // local state
-    const [openEditProfileDialog, setOpen] = React.useState(false);
+    const [openEditProfileDialog, setOpenEditProfileDialog] = React.useState(false);
+    const [openPicUploaderDialog, setOpenPicUploaderDialog] = React.useState(false);
 
     // logic for handling edit profile modal
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleOpenEditProfileDialog = () => {
+        setOpenEditProfileDialog(true);
     };
-    const handleClose = () => {
-        setOpen(false);
+    const handleCloseEditProfileDialog = () => {
+        setOpenEditProfileDialog(false);
+    };
+
+    const handleOpenPicUploaderDialog = () => {
+        setOpenPicUploaderDialog(true);
+    };
+
+    const handleClosePicUploaderDialog = (value) => {
+        setOpenPicUploaderDialog(false);
     };
 
     // redux state & dispatch
     const userData = useSelector(state => state.user.self);
 
     // logic for displaying traits
-    let basicInfo = null
+    let basicInfo = []
     if(userData){
-        let even = true;
-        const traitLen = Object.keys(userData).length;
-        const oddNumberTraits = Object.keys(userData).length % 2 !== 0;
-        let count = 0;
-        basicInfo = Object.values(userData).map(trait => {
-            count++;
-            if(trait.value.length >= 20){
-                if(even){
-                    return (
-                        <Grid item xs={12} className={classes.traitBox} key={trait.title}>
-                            <Typography color='textPrimary' align="left">{trait.title}</Typography>
-                            <Typography align="left">{trait.value}</Typography>
-                        </Grid>
-                    )
-                } else {
-                    even = !even;
-                    return (
-                        <Grid item xs={12} lg={count === traitLen && oddNumberTraits ? 12 : 6} className={classes.traitBox} key={trait.title}>
-                            <Typography color='textPrimary' align="left">{trait.title}</Typography>
-                            <Typography align="left">{trait.value}</Typography>
-                        </Grid>
-                    )
-                }
+        const oddNumberTraits = Object.keys(userData).length % 2 === 0;
 
-            } else {
-                even = !even;
-                return (
-                    <Grid item xs={12} lg={count === traitLen && oddNumberTraits ? 12 : 6} className={classes.traitBox} key={trait.title}>
-                        <Typography color='textPrimary' align="left">{trait.title}</Typography>
-                        <Typography align="left">{trait.value}</Typography>
-                    </Grid>
-                )
-            }
-        })
+        if(userData.name && userData.name.title){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={userData.name.title}>
+                    <Typography color='textPrimary' align="left">{userData.name.title}</Typography>
+                    <Typography align="left">{userData.name.value}</Typography>
+                </Grid>
+            )
+        }
+
+        if(userData.hometown && userData.hometown.title){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={userData.hometown.title}>
+                    <Typography color='textPrimary' align="left">{userData.hometown.title}</Typography>
+                    <Typography align="left">{userData.hometown.value}</Typography>
+                </Grid>
+            )
+        }
+
+        if(userData.livesIn && userData.livesIn.title){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={userData.livesIn.title}>
+                    <Typography color='textPrimary' align="left">{userData.livesIn.title}</Typography>
+                    <Typography align="left">{userData.livesIn.value}</Typography>
+                </Grid>
+            )
+        }
+
+        if(userData.worksIn && userData.worksIn.title){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={userData.worksIn.title}>
+                    <Typography color='textPrimary' align="left">{userData.worksIn.title}</Typography>
+                    <Typography align="left">{userData.worksIn.value}</Typography>
+                </Grid>
+            )
+        }
+
+        if(userData.interest && userData.interest.title){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={userData.interest.title}>
+                    <Typography color='textPrimary' align="left">{userData.interest.title}</Typography>
+                    <Typography align="left">{userData.interest.value}</Typography>
+                </Grid>
+            )
+        }
+
+        if(userData.quote && userData.quote.title){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={userData.quote.title}>
+                    <Typography color='textPrimary' align="left">{userData.quote.title}</Typography>
+                    <Typography align="left">{userData.quote.value}</Typography>
+                </Grid>
+            )
+        }
+
+        // filler grid item to keep row even
+        if(oddNumberTraits){
+            basicInfo.push(
+                <Grid item xs={12} lg={6} className={classes.traitBox} key={1234}>
+                </Grid>
+            )
+        }
     }
 
     return(
         <div>
             <Paper className={classes.paper}>
                 <Grid container item xs={12} justify="center">
-                    <Avatar alt="Carlo Bilbao" src={image1} className={classes.large} />
+                    <Badge
+                        overlap="circle"
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        badgeContent={
+                            <IconButton color="primary" aria-label="upload picture" component="span">
+                                <PhotoCameraIcon fontSize="large"/>
+                            </IconButton>
+                        }
+                        onClick={handleOpenPicUploaderDialog}
+                    >
+                        <Avatar alt="Carlo Bilbao" src={image1} className={classes.large}/>
+                    </Badge>
                 </Grid>
                 <br/>
                 <Grid container item xs={12} justify="center">
                     {basicInfo}
                 </Grid>
                 <Grid container item xs={12} justify="flex-end">
-                    <Button onClick={handleClickOpen} color="primary">Edit</Button>
+                    <Button onClick={handleOpenEditProfileDialog} color="primary">Edit</Button>
                 </Grid>
             </Paper>
             <EditProfileDialog 
-                handleClose={handleClose} 
+                handleCloseEditProfileDialog={handleCloseEditProfileDialog} 
                 openEditProfileDialog={openEditProfileDialog}/>
+            <PicUploadDialog 
+                handleClosePicUploaderDialog={handleClosePicUploaderDialog} 
+                openPicUploaderDialog={openPicUploaderDialog}/>
         </div>
 
     )

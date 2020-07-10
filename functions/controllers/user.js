@@ -6,6 +6,7 @@ const db = admin.firestore();
 exports.getUserData = async (req, res, next) => {
     // extract body data
     const uid = req.body.uid;
+    console.log(uid);
 
     // pull up data from db
     try {
@@ -15,7 +16,7 @@ exports.getUserData = async (req, res, next) => {
             return res.status(200).json(user);
         }
     } catch(err){
-        console.log("Error adding user");
+        console.log("Error Getting User");
         if (!err.statusCode) err.statusCode = 500;
         return next(err);
     }
@@ -30,15 +31,18 @@ exports.updateUserData = async (req, res, next) => {
         
     try {
         // update min user data
-        if(user & user.name && user.name.value)
+        if(user && user.name && user.name.value)
             await db.collection('usersMin').doc(uid).update({ name: user.name.value });
 
         // update max user data
-        const doc = await db.collection('usersMax').doc(uid).set(user);
+        await db.collection('usersMax').doc(uid).set(user);
+
+        // get freshest user data
+        const doc = await db.collection('usersMax').doc(uid).get();
         const updatedUser = doc.data();
         return res.status(200).json(updatedUser);
     } catch(err){
-        console.log("Error adding user");
+        console.log("Error Updating User");
         if (!err.statusCode) err.statusCode = 500;
         return next(err);
     }

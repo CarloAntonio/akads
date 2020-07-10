@@ -2,25 +2,17 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
-
 
 // custom containers
 import BasicInfo from './BasicInfo';
 import NewPost from './NewPost';
 import PostCard from './PostCard';
 import FLAvatar from './FLAvatar';
-
-// assets
-import image1 from '../../assets/images/profile.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +65,7 @@ export default function Profile(){
     return (
       <div className={classes.root}>
           <Grid container spacing={2}>
-            <Grid item xs={5}>
+            <Grid item xs={12} lg={5}>
               {/* Basic Info */}
               <BasicInfo/>
 
@@ -137,7 +129,7 @@ export default function Profile(){
             </Grid>
 
             {/* Right Hand Side */}
-            <Grid item xs={7}>
+            <Grid item xs={12} lg={7}>
               {/* New Post Container */}
               <NewPost/>
               
