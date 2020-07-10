@@ -10,6 +10,7 @@ const router = express.Router();
 
 // routes
 router.post('/getUser', userController.getUserData)
+router.post('/updateUser', userController.updateUserData)
 
 // export router
 module.exports = router;

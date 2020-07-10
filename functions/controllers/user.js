@@ -22,3 +22,28 @@ exports.getUserData = async (req, res, next) => {
 
     return null;
 }
+
+exports.updateUserData = async (req, res, next) => {
+    // extract body data
+    const user = req.body.user;
+    const uid = req.body.uid;
+
+    // update min user data
+    if(user & user.name && user.name.value)
+        await db.collection('usersMin').doc(uid).updated({ name: user.name.value })
+
+    // update max user data
+    try {
+        const doc = await db.collection('usersMax').doc(uid).set(user);
+        if (doc.exists) {
+            const user = doc.data();
+            return res.status(200).json(user);
+        }
+    } catch(err){
+        console.log("Error adding user");
+        if (!err.statusCode) err.statusCode = 500;
+        return next(err);
+    }
+
+    return null;
+}

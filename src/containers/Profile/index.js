@@ -14,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 // custom containers
+import BasicInfo from './BasicInfo';
 import NewPost from './NewPost';
 import PostCard from './PostCard';
 import FLAvatar from './FLAvatar';
@@ -27,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
-    margin: "84px",
+    margin: "84px auto",
     fontSize: "calc(10px + 2vmin)",
+    maxWidth: "1020px"
   },
   paper: {
     padding: theme.spacing(2),
@@ -72,34 +74,8 @@ export default function Profile(){
       <div className={classes.root}>
           <Grid container spacing={2}>
             <Grid item xs={5}>
-              <Paper className={classes.paper}>
-                <Grid container item xs={12} justify="center">
-                  <Avatar alt="Carlo Bilbao" src={image1} className={classes.large} />
-                </Grid>
-                <Grid container item xs={12} justify="center">
-                  <Grid item xs={10}>
-                    <Typography align="center">Carlo Bilbao</Typography>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography  align="left">Member Since: April 26, 2020</Typography>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography  align="left">Lives: Antioch, CA</Typography>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography  align="left">Hometown: Concord, CA</Typography>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography  align="left">Works In: Biotech</Typography>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography  align="left">Interest: Programming, Sciences, Working Out, Doggos</Typography>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography  align="left">Real Gs Move in Silence, Like Lasanga</Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
+              {/* Basic Info */}
+              <BasicInfo/>
 
               {/* Personality Section */}
               <Paper className={classes.paper}>

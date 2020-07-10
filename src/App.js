@@ -29,8 +29,6 @@ export default function App() {
   const user = useSelector(state => state.user.self);
   const dispatch = useDispatch();
 
-  console.log(user)
-
   // effect only activates if [auth.uid] changes
   useEffect(() => {
       async function fetchData(){
