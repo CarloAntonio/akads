@@ -1,7 +1,7 @@
 
 // libraries
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
@@ -149,7 +149,7 @@ export default function BasicInfo(){
                         }
                         onClick={handleOpenPicUploaderDialog}
                     >
-                        <Avatar alt="Carlo Bilbao" src={image1} className={classes.large}/>
+                        <Avatar alt="Carlo Bilbao" src={userData ? userData.base64ProfilePic : null } className={classes.large}/>
                     </Badge>
                 </Grid>
                 <br/>

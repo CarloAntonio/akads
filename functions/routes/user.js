@@ -9,8 +9,9 @@ const userController = require('../controllers/user');
 const router = express.Router();
 
 // routes
-router.post('/getUser', userController.getUserData)
-router.post('/updateUser', userController.updateUserData)
+router.post('/getUser', userController.getUserData);
+router.post('/updateUser', userController.updateUserData);
+router.post('/uploadProfilePic', userController.uploadProfilePic);
 
 // export router
 module.exports = router;

@@ -1,6 +1,7 @@
 
 // libraries
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import AvatarEditor from 'react-avatar-edit'
 
 // material-ui
@@ -10,11 +11,44 @@ import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 
+// utils
+import { envEndpoint } from '../../utils/firebase-service';
+import { setUser } from '../../store/actions/index';
+
 export default function PicUploadDialog(props){
-    const [ image, setImage ] = React.useState(null)
-    
-    const handleSaveImage = () => {
-        console.log(image)
+    // local state
+    const [ base64String, setBase64String ] = React.useState(null);
+
+    // redux state and dispatch
+    const auth = useSelector(state => state.firebase.auth);
+    const dispatch = useDispatch();
+
+    // reach out to backend
+    const handleSaveImage = async () => {
+        props.handleClosePicUploaderDialog()
+
+        try{
+            const response = await fetch(`${envEndpoint}user/uploadProfilePic`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    base64String,
+                    uid: auth.uid,
+                }),
+            });
+  
+            // handle when request completed successfully
+            if(response.ok && response.status === 200) { 
+                // pull user data
+                const result = await response.json();
+                dispatch(setUser(result));
+            }
+            
+        } catch(err){
+            console.log(err);
+        }
     }
 
     return (
@@ -25,15 +59,15 @@ export default function PicUploadDialog(props){
                 <AvatarEditor
                     width={390}
                     height={295}
-                    onCrop={image => setImage(image)}
-                    onClose={() => setImage(null)}
+                    onCrop={base64 => setBase64String(base64)}
+                    onClose={() => setBase64String(null)}
                     />
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.handleClosePicUploaderDialog} color="secondary" variant="contained">
                     Cancel
                 </Button>
-                <Button onClick={handleSaveImage} color="secondary" variant="contained">
+                <Button onClick={handleSaveImage} disabled={base64String ? false : true } color="secondary" variant="contained">
                     Save
                 </Button>
             </DialogActions>
