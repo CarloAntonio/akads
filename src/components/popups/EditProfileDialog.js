@@ -46,11 +46,11 @@ export default function EditProfileDialog(props){
     const handleUpdateSummary = () => {
         const updatedUser = cloneDeep(userData);
         updatedUser.name = name;
-        updatedUser.livesIn = livesIn;
-        updatedUser.hometown = hometown;
-        updatedUser.worksIn = worksIn;
-        updatedUser.interest = interest;
-        updatedUser.quote = quote;
+        if(livesIn) updatedUser.livesIn = livesIn;
+        if(hometown) updatedUser.hometown = hometown;
+        if(worksIn) updatedUser.worksIn = worksIn;
+        if(interest) updatedUser.interest = interest;
+        if(quote) updatedUser.quote = quote;
         updateUser(updatedUser);
         props.handleClose()
     }
@@ -73,6 +73,7 @@ export default function EditProfileDialog(props){
             if(response.ok && response.status === 200) { 
                 // pull user data
                 const result = await response.json();
+                console.log(result)
                 dispatch(setUser(result));
             }
         } catch(err){

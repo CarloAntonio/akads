@@ -30,8 +30,8 @@ exports.updateUserData = async (req, res, next) => {
 
     // update min user data
     if(user & user.name && user.name.value)
-        await db.collection('usersMin').doc(uid).updated({ name: user.name.value })
-
+        const test = await db.collection('usersMin').doc(uid).update({ name: user.name.value });
+        
     // update max user data
     try {
         const doc = await db.collection('usersMax').doc(uid).set(user);

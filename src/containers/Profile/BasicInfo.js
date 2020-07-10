@@ -94,26 +94,15 @@ export default function BasicInfo(){
         const oddNumberTraits = Object.keys(userData).length % 2 !== 0;
         let count = 0;
         basicInfo = Object.values(userData).map(trait => {
-            if(!trait.hidden){
-                count++;
-                if(trait.value.length >= 20){
-                    if(even){
-                        return (
-                            <Grid item xs={12} className={classes.traitBox} key={trait.title}>
-                                <Typography color='textPrimary' align="left">{trait.title}</Typography>
-                                <Typography align="left">{trait.value}</Typography>
-                            </Grid>
-                        )
-                    } else {
-                        even = !even;
-                        return (
-                            <Grid item xs={12} lg={count === traitLen && oddNumberTraits ? 12 : 6} className={classes.traitBox} key={trait.title}>
-                                <Typography color='textPrimary' align="left">{trait.title}</Typography>
-                                <Typography align="left">{trait.value}</Typography>
-                            </Grid>
-                        )
-                    }
-    
+            count++;
+            if(trait.value.length >= 20){
+                if(even){
+                    return (
+                        <Grid item xs={12} className={classes.traitBox} key={trait.title}>
+                            <Typography color='textPrimary' align="left">{trait.title}</Typography>
+                            <Typography align="left">{trait.value}</Typography>
+                        </Grid>
+                    )
                 } else {
                     even = !even;
                     return (
@@ -123,6 +112,15 @@ export default function BasicInfo(){
                         </Grid>
                     )
                 }
+
+            } else {
+                even = !even;
+                return (
+                    <Grid item xs={12} lg={count === traitLen && oddNumberTraits ? 12 : 6} className={classes.traitBox} key={trait.title}>
+                        <Typography color='textPrimary' align="left">{trait.title}</Typography>
+                        <Typography align="left">{trait.value}</Typography>
+                    </Grid>
+                )
             }
         })
     }
